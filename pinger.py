@@ -4,6 +4,12 @@ from icmplib import ping, multiping, traceroute
 from time import sleep, time, ctime
 from csv import reader, writer
 from colorama import Fore, Style
+from os import error, system
+
+
+def mport():
+    # do a check on the system to see if modules already exist if they do move on to start()
+    system('sudo -H pip3 install icmplib colorama')
 
 
 def start():
@@ -16,6 +22,7 @@ def start():
         for minutes in range(0, 1440):
             ping_devices()
             sleep(60)
+            system('clear')
 
 
 def ping_devices():
@@ -38,4 +45,10 @@ def ping_devices():
 
 
 if '__main__' == __name__:
-    start()
+    try:
+        mport()
+        start()
+    except:
+        KeyboardInterrupt
+        print('\nYou decided to quit the Pinger?!\nGood Bye!!')
+        exit(1)
